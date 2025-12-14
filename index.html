@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nature Viewers — Gallery</title>
+  <meta name="description" content="A simple, responsive gallery for nature viewers with a hero header and lightbox." />
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#2dd4bf;--text:#e6eef6}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;background:linear-gradient(180deg,#071021 0%, #0b1220 100%);color:var(--text);line-height:1.4}
+    header{padding:3rem 1.25rem;text-align:left;color:var(--text)}
+    .container{max-width:1100px;margin:0 auto}
+    .brand{display:flex;align-items:center;gap:.75rem}
+    .logo{width:52px;height:52px;border-radius:8px;overflow:hidden;flex:0 0 52px}
+    .logo img{width:100%;height:100%;object-fit:cover;display:block}
+    h1{margin:.4rem 0 .1rem;font-size:clamp(1.6rem,2.8vw,2.4rem)}
+    p.lead{margin:.25rem 0 0;color:#c9dee6;opacity:.95}
+
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;padding:1rem}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:10px;overflow:hidden;cursor:pointer;position:relative;border:1px solid rgba(255,255,255,0.04)}
+    .card img{display:block;width:100%;height:220px;object-fit:cover;transition:transform .35s ease}
+    .card:hover img{transform:scale(1.04)}
+    .caption{padding:.6rem .75rem;font-size:.95rem;color:#dceff3}
+
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,6,23,0.7);z-index:1200;opacity:0;pointer-events:none;transition:opacity .2s ease}
+    .lightbox[aria-hidden="false"]{opacity:1;pointer-events:auto}
+    .lightbox-inner{max-width:95%;max-height:95%;display:flex;flex-direction:column;align-items:center;gap:.6rem}
+    .lightbox img{max-width:100%;max-height:80vh;border-radius:8px;box-shadow:0 8px 30px rgba(2,6,23,.6)}
+    .lightbox .lb-caption{color:#d7eef3;background:rgba(3,8,15,0.6);padding:.35rem .6rem;border-radius:6px;font-size:.95rem}
+    .close-btn{position:absolute;top:1rem;right:1rem;background:rgba(0,0,0,0.4);border:0;color:var(--text);padding:.45rem .6rem;border-radius:6px;cursor:pointer}
+
+    /* Footer */
+    footer{padding:2rem 1rem;color:#bcd7df;text-align:center;font-size:.9rem}
+
+    @media (min-width:720px){.card img{height:240px}}
+  </style>
+</head>
+<body>
+  <header class="container">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=400&auto=format&fit=crop" alt="leaf pattern">
+      </div>
+      <div>
+        <h1>Nature Viewers</h1>
+        <p class="lead">Simple, calming gallery of nature photos — click any image to view it larger.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+    <section aria-label="Nature gallery">
+      <div class="gallery" id="gallery">
+        <!-- Each card contains an image and caption. Images are from Unsplash. -->
+
+        <figure class="card" tabindex="0" data-caption="Misty forest at sunrise" data-src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop" alt="Misty forest at sunrise">
+          <figcaption class="caption">Misty forest at sunrise</figcaption>
+        </figure>
+
+        <figure class="card" tabindex="0" data-caption="Mountain lake reflection" data-src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1600&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800&auto=format&fit=crop" alt="Mountain lake reflection">
+          <figcaption class="caption">Mountain lake reflection</figcaption>
+        </figure>
+
+        <figure class="card" tabindex="0" data-caption="Autumn path among trees" data-src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=1600&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=800&auto=format&fit=crop" alt="Autumn path among trees">
+          <figcaption class="caption">Autumn path among trees</figcaption>
+        </figure>
+
+        <figure class="card" tabindex="0" data-caption="Calm sea and rocky shore" data-src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop" alt="Calm sea and rocky shore">
+          <figcaption class="caption">Calm sea and rocky shore</figcaption>
+        </figure>
+
+        <figure class="card" tabindex="0" data-caption="Rolling hills under clouds" data-src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop" alt="Rolling hills under clouds">
+          <figcaption class="caption">Rolling hills under clouds</figcaption>
+        </figure>
+
+        <figure class="card" tabindex="0" data-caption="Sunlight through evergreen trees" data-src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=abcd">
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=abcd" alt="Sunlight through evergreen trees">
+          <figcaption class="caption">Sunlight through evergreen trees</figcaption>
+        </figure>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" role="dialog" aria-hidden="true" aria-label="Image viewer" id="lightbox">
+    <button class="close-btn" id="closeBtn" aria-label="Close viewer">✕</button>
+    <div class="lightbox-inner" id="lbInner">
+      <img src="" alt="" id="lbImage">
+      <div class="lb-caption" id="lbCaption"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">Photos from Unsplash. Built for simple nature viewing — click an image to open the viewer. Press Escape to close.</div>
+  </footer>
+
+  <script>
+    (function(){
+      const gallery = document.getElementById('gallery');
+      const lightbox = document.getElementById('lightbox');
+      const lbImage = document.getElementById('lbImage');
+      const lbCaption = document.getElementById('lbCaption');
+      const closeBtn = document.getElementById('closeBtn');
+
+      function openLightbox(src, caption, alt){
+        lbImage.src = src;
+        lbImage.alt = alt || caption || 'Nature image';
+        lbCaption.textContent = caption || '';
+        lightbox.setAttribute('aria-hidden','false');
+        // trap focus briefly on close button
+        closeBtn.focus();
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox(){
+        lightbox.setAttribute('aria-hidden','true');
+        lbImage.src = '';
+        document.body.style.overflow = '';
+      }
+
+      gallery.addEventListener('click', (e)=>{
+        const card = e.target.closest('.card');
+        if(!card) return;
+        const src = card.dataset.src;
+        const caption = card.dataset.caption;
+        const img = card.querySelector('img');
+        const alt = img ? img.alt : '';
+        openLightbox(src, caption, alt);
+      });
+
+      // keyboard support: open when pressing Enter on focused card
+      gallery.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter' || e.key === ' ') {
+          const card = e.target.closest('.card');
+          if(!card) return;
+          e.preventDefault();
+          const src = card.dataset.src;
+          const caption = card.dataset.caption;
+          const img = card.querySelector('img');
+          const alt = img ? img.alt : '';
+          openLightbox(src, caption, alt);
+        }
+      });
+
+      // Close handlers
+      closeBtn.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e)=>{
+        if(e.target === lightbox) closeLightbox();
+      });
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape' && lightbox.getAttribute('aria-hidden') === 'false') closeLightbox();
+      });
+
+    })();
+  </script>
+</body>
+</html>
